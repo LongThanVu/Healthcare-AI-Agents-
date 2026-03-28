@@ -5,10 +5,6 @@ This repository is created for the competition:
 ---
 
 ### 👥 Team Project
-Here’s a slightly longer and more engaging version:
-
----
-
 We build an A2A system with three intelligent agents working together:
 
 * **Agent 1:** Handles disease diagnosis
