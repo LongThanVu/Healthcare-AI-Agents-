@@ -1,9 +1,9 @@
 # 🏥 Healthcare AI Agents
 This repository is created for the competition:
 **Agents Assemble – The Healthcare AI Endgame**
-🔗 [https://agents-assemble.devpost.com/](https://agents-assemble.devpost.com/)
 ---
-
+Competition link: 
+🔗 [https://agents-assemble.devpost.com/](https://agents-assemble.devpost.com/)
 ### 👥 Team Project
 We build an A2A system with three intelligent agents working together:
 
