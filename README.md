@@ -1,4 +1,3 @@
-Dưới đây là phiên bản **kết hợp + làm sạch + chuyên nghiệp hóa** từ 2 nội dung bạn đưa, giữ đầy đủ ý nhưng mạch lạc hơn để dùng làm README chính 👇
 # 🏥 Healthcare A2A System
 
 **Multi-Agent Healthcare Workflow Platform**
