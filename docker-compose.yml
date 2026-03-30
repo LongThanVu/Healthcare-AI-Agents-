@@ -1,0 +1,80 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    command: uvicorn apps.api_gateway.app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      SERVICE_NAME: api-gateway
+      ORCHESTRATOR_URL: http://orchestrator:8001
+    volumes:
+      - ./:/app
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    command: uvicorn apps.orchestrator.app.main:app --host 0.0.0.0 --port 8001 --reload
+    ports:
+      - "8001:8001"
+    environment:
+      SERVICE_NAME: orchestrator
+      DIAGNOSIS_AGENT_URL: http://diagnosis-agent:8002
+      SCHEDULING_AGENT_URL: http://scheduling-agent:8003
+      DATA_AGENT_URL: http://data-agent:8004
+    volumes:
+      - ./:/app
+
+  diagnosis-agent:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    command: uvicorn services.diagnosis_agent.app.main:app --host 0.0.0.0 --port 8002 --reload
+    ports:
+      - "8002:8002"
+    environment:
+      SERVICE_NAME: diagnosis-agent
+    volumes:
+      - ./:/app
+
+  scheduling-agent:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    command: uvicorn services.scheduling_agent.app.main:app --host 0.0.0.0 --port 8003 --reload
+    ports:
+      - "8003:8003"
+    environment:
+      SERVICE_NAME: scheduling-agent
+    volumes:
+      - ./:/app
+
+  data-agent:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+    command: uvicorn services.data_agent.app.main:app --host 0.0.0.0 --port 8004 --reload
+    ports:
+      - "8004:8004"
+    environment:
+      SERVICE_NAME: data-agent
+    volumes:
+      - ./:/app
+
+  web-dashboard:
+    build:
+      context: .
+      dockerfile: infra/docker/frontend.Dockerfile
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    volumes:
+      - ./apps/web-dashboard:/app/apps/web-dashboard
+      - /app/apps/web-dashboard/node_modules
+    working_dir: /app/apps/web-dashboard
