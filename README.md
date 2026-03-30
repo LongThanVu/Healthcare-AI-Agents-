@@ -18,13 +18,9 @@ The system coordinates **three intelligent agents** through a central **orchestr
 * Efficient patient data retrieval
 * Reduced administrative workload
 
-👉 Goal: Build a **scalable, real-world-ready healthcare AI system** for hospitals and clinics.
+## Agents Architecture
 
----
-
-## 🤖 Agents Architecture
-
-### 🧠 Diagnosis Agent
+### Diagnosis Agent
 
 * Analyzes patient symptoms
 * Estimates urgency level
@@ -87,7 +83,7 @@ The system coordinates **three intelligent agents** through a central **orchestr
 
 ---
 
-## 🔐 Authentication Flow
+## Authentication Flow
 
 ### Register
 
@@ -247,12 +243,5 @@ docker compose up --build
 * Scheduling Agent: [http://localhost:8003/docs](http://localhost:8003/docs)
 * Data Agent: [http://localhost:8004/docs](http://localhost:8004/docs)
 * Web Dashboard: [http://localhost:5173](http://localhost:5173)
-
----
-
-## 👤 Default Admin Account
-
-* Email: `admin@healthcare.local`
-* Password: `admin123456`
 
 
