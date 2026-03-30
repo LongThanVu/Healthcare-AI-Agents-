@@ -15,6 +15,9 @@ This system is designed to streamline healthcare workflows by automating key pro
 
 By combining multiple AI agents, the system enables more efficient, accurate, and scalable healthcare solutions that can support hospitals and clinics in real-world scenarios.
 
+## 📁 Project Structure
+
+```text
 healthcare-a2a-system/
 ├── apps/
 │   ├── api-gateway/          # Entry point for client requests (REST/API)
@@ -24,8 +27,8 @@ healthcare-a2a-system/
 │   │   │   ├── middleware/   # Auth, logging, rate limit
 │   │   │   └── main.py
 │   │   └── tests/
-│
-│   ├── orchestrator/        # A2A coordination between agents
+│   │
+│   ├── orchestrator/         # A2A coordination between agents
 │   │   ├── app/
 │   │   │   ├── workflows/    # Multi-agent workflows
 │   │   │   ├── handlers/     # Agent-specific handlers
@@ -33,8 +36,8 @@ healthcare-a2a-system/
 │   │   │   ├── services/     # Orchestration logic
 │   │   │   └── main.py
 │   │   └── tests/
-│
-│   └── web-dashboard/       # Frontend for doctors/admin
+│   │
+│   └── web-dashboard/        # Frontend for doctors/admin
 │       ├── public/
 │       ├── src/
 │       │   ├── pages/
@@ -43,8 +46,8 @@ healthcare-a2a-system/
 │       │   └── hooks/
 │       └── tests/
 │
-├── services/                # Independent AI agents
-│   ├── diagnosis-agent/     # Agent 1: Disease diagnosis
+├── services/                 # Independent AI agents
+│   ├── diagnosis-agent/      # Agent 1: Disease diagnosis
 │   │   ├── app/
 │   │   │   ├── agent/        # Core reasoning logic
 │   │   │   │   ├── diagnosis_agent.py
@@ -52,7 +55,7 @@ healthcare-a2a-system/
 │   │   │   │   ├── risk_assessor.py
 │   │   │   │   └── recommendation_engine.py
 │   │   │   ├── prompts/      # LLM prompts
-│   │   │   ├── tools/        # External tools (guidelines, symptom checker)
+│   │   │   ├── tools/        # External tools
 │   │   │   ├── schemas/      # Input/output formats
 │   │   │   ├── services/     # Business logic layer
 │   │   │   └── main.py
@@ -61,8 +64,8 @@ healthcare-a2a-system/
 │   │   │   ├── integration/
 │   │   │   └── evaluation/
 │   │   └── README.md
-│
-│   ├── scheduling-agent/    # Agent 2: Appointment scheduling
+│   │
+│   ├── scheduling-agent/     # Agent 2: Appointment scheduling
 │   │   ├── app/
 │   │   │   ├── agent/
 │   │   │   │   ├── scheduling_agent.py
@@ -79,8 +82,8 @@ healthcare-a2a-system/
 │   │   │   ├── integration/
 │   │   │   └── evaluation/
 │   │   └── README.md
-│
-│   └── data-agent/          # Agent 3: Data retrieval & validation
+│   │
+│   └── data-agent/           # Agent 3: Data retrieval & validation
 │       ├── app/
 │       │   ├── agent/
 │       │   │   ├── data_agent.py
@@ -99,48 +102,49 @@ healthcare-a2a-system/
 │       │   └── evaluation/
 │       └── README.md
 │
-├── shared/                 # Shared modules across services
-│   ├── core/               # Config, constants
-│   ├── llm/                # LLM abstraction layer
-│   ├── messaging/          # Event/message system
-│   ├── database/           # DB models & session
-│   ├── security/           # Auth, encryption
-│   ├── logging/            # Logging & tracing
-│   ├── schemas/            # Shared data models
-│   └── utils/              # Helper functions
+├── shared/                   # Shared modules across services
+│   ├── core/                 # Config, constants
+│   ├── llm/                  # LLM abstraction layer
+│   ├── messaging/            # Event/message system
+│   ├── database/             # DB models & session
+│   ├── security/             # Auth, encryption
+│   ├── logging/              # Logging & tracing
+│   ├── schemas/              # Shared data models
+│   └── utils/                # Helper functions
 │
-├── configs/                # Environment & system configs
+├── configs/                  # Environment & system configs
 │   ├── app/
 │   ├── agents/
 │   ├── prompts/
 │   └── logging/
 │
-├── docs/                   # Project documentation
+├── docs/                     # Project documentation
 │   ├── architecture/
 │   ├── api/
 │   ├── workflow/
 │   └── deployment/
 │
-├── tests/                  # Global test suite
+├── tests/                    # Global test suite
 │   ├── unit/
 │   ├── integration/
 │   ├── e2e/
 │   └── performance/
 │
-├── scripts/                # Utility scripts
+├── scripts/                  # Utility scripts
 │   ├── setup_local.sh
 │   ├── seed_data.py
 │   ├── run_tests.sh
 │   └── migrate_db.sh
 │
-├── infra/                  # Deployment & DevOps
+├── infra/                    # Deployment & DevOps
 │   ├── docker/
 │   ├── k8s/
 │   └── ci-cd/
 │
-├── data/                   # Sample & mock data
+├── data/                     # Sample & mock data
 │   ├── sample/
 │   ├── fixtures/
 │   └── mock/
 │
 └── README.md
+```
