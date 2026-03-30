@@ -17,22 +17,24 @@ By combining multiple AI agents, the system enables more efficient, accurate, an
 
 healthcare-a2a-system/
 ├── apps/
-│   ├── api-gateway/
+│   ├── api-gateway/          # Entry point for client requests (REST/API)
 │   │   ├── app/
-│   │   │   ├── routes/
-│   │   │   ├── schemas/
-│   │   │   ├── middleware/
+│   │   │   ├── routes/       # API endpoints
+│   │   │   ├── schemas/      # Request/response models
+│   │   │   ├── middleware/   # Auth, logging, rate limit
 │   │   │   └── main.py
 │   │   └── tests/
-│   ├── orchestrator/
+│
+│   ├── orchestrator/        # A2A coordination between agents
 │   │   ├── app/
-│   │   │   ├── workflows/
-│   │   │   ├── handlers/
-│   │   │   ├── protocols/
-│   │   │   ├── services/
+│   │   │   ├── workflows/    # Multi-agent workflows
+│   │   │   ├── handlers/     # Agent-specific handlers
+│   │   │   ├── protocols/    # Message formats (A2A)
+│   │   │   ├── services/     # Orchestration logic
 │   │   │   └── main.py
 │   │   └── tests/
-│   └── web-dashboard/
+│
+│   └── web-dashboard/       # Frontend for doctors/admin
 │       ├── public/
 │       ├── src/
 │       │   ├── pages/
@@ -41,37 +43,26 @@ healthcare-a2a-system/
 │       │   └── hooks/
 │       └── tests/
 │
-├── services/
-│   ├── diagnosis-agent/
+├── services/                # Independent AI agents
+│   ├── diagnosis-agent/     # Agent 1: Disease diagnosis
 │   │   ├── app/
-│   │   │   ├── agent/
+│   │   │   ├── agent/        # Core reasoning logic
 │   │   │   │   ├── diagnosis_agent.py
 │   │   │   │   ├── symptom_analyzer.py
 │   │   │   │   ├── risk_assessor.py
 │   │   │   │   └── recommendation_engine.py
-│   │   │   ├── prompts/
-│   │   │   │   ├── system_prompt.txt
-│   │   │   │   ├── diagnosis_prompt.txt
-│   │   │   │   └── explanation_prompt.txt
-│   │   │   ├── tools/
-│   │   │   │   ├── symptom_checker.py
-│   │   │   │   ├── medical_guideline_lookup.py
-│   │   │   │   └── triage_tool.py
-│   │   │   ├── schemas/
-│   │   │   │   ├── request.py
-│   │   │   │   ├── response.py
-│   │   │   │   └── diagnosis_result.py
-│   │   │   ├── services/
-│   │   │   │   ├── diagnosis_service.py
-│   │   │   │   └── confidence_service.py
+│   │   │   ├── prompts/      # LLM prompts
+│   │   │   ├── tools/        # External tools (guidelines, symptom checker)
+│   │   │   ├── schemas/      # Input/output formats
+│   │   │   ├── services/     # Business logic layer
 │   │   │   └── main.py
 │   │   ├── tests/
 │   │   │   ├── unit/
 │   │   │   ├── integration/
 │   │   │   └── evaluation/
 │   │   └── README.md
-│   │
-│   ├── scheduling-agent/
+│
+│   ├── scheduling-agent/    # Agent 2: Appointment scheduling
 │   │   ├── app/
 │   │   │   ├── agent/
 │   │   │   │   ├── scheduling_agent.py
@@ -79,28 +70,17 @@ healthcare-a2a-system/
 │   │   │   │   ├── slot_optimizer.py
 │   │   │   │   └── conflict_resolver.py
 │   │   │   ├── prompts/
-│   │   │   │   ├── system_prompt.txt
-│   │   │   │   ├── booking_prompt.txt
-│   │   │   │   └── reschedule_prompt.txt
-│   │   │   ├── tools/
-│   │   │   │   ├── doctor_calendar_tool.py
-│   │   │   │   ├── patient_notification_tool.py
-│   │   │   │   └── appointment_validator.py
+│   │   │   ├── tools/        # Calendar, notifications
 │   │   │   ├── schemas/
-│   │   │   │   ├── booking_request.py
-│   │   │   │   ├── booking_response.py
-│   │   │   │   └── appointment_slot.py
 │   │   │   ├── services/
-│   │   │   │   ├── booking_service.py
-│   │   │   │   └── reminder_service.py
 │   │   │   └── main.py
 │   │   ├── tests/
 │   │   │   ├── unit/
 │   │   │   ├── integration/
 │   │   │   └── evaluation/
 │   │   └── README.md
-│   │
-│   └── data-agent/
+│
+│   └── data-agent/          # Agent 3: Data retrieval & validation
 │       ├── app/
 │       │   ├── agent/
 │       │   │   ├── data_agent.py
@@ -108,24 +88,10 @@ healthcare-a2a-system/
 │       │   │   ├── retrieval_engine.py
 │       │   │   └── validation_engine.py
 │       │   ├── prompts/
-│       │   │   ├── system_prompt.txt
-│       │   │   ├── retrieval_prompt.txt
-│       │   │   └── validation_prompt.txt
-│       │   ├── tools/
-│       │   │   ├── sql_tool.py
-│       │   │   ├── patient_record_tool.py
-│       │   │   └── vector_search_tool.py
-│       │   ├── repositories/
-│       │   │   ├── patient_repository.py
-│       │   │   ├── appointment_repository.py
-│       │   │   └── medical_history_repository.py
+│       │   ├── tools/        # SQL, vector search
+│       │   ├── repositories/ # DB access layer
 │       │   ├── schemas/
-│       │   │   ├── query_request.py
-│       │   │   ├── query_response.py
-│       │   │   └── patient_record.py
 │       │   ├── services/
-│       │   │   ├── retrieval_service.py
-│       │   │   └── data_access_service.py
 │       │   └── main.py
 │       ├── tests/
 │       │   ├── unit/
@@ -133,46 +99,46 @@ healthcare-a2a-system/
 │       │   └── evaluation/
 │       └── README.md
 │
-├── shared/
-│   ├── core/
-│   ├── llm/
-│   ├── messaging/
-│   ├── database/
-│   ├── security/
-│   ├── logging/
-│   ├── schemas/
-│   └── utils/
+├── shared/                 # Shared modules across services
+│   ├── core/               # Config, constants
+│   ├── llm/                # LLM abstraction layer
+│   ├── messaging/          # Event/message system
+│   ├── database/           # DB models & session
+│   ├── security/           # Auth, encryption
+│   ├── logging/            # Logging & tracing
+│   ├── schemas/            # Shared data models
+│   └── utils/              # Helper functions
 │
-├── configs/
+├── configs/                # Environment & system configs
 │   ├── app/
 │   ├── agents/
 │   ├── prompts/
 │   └── logging/
 │
-├── docs/
+├── docs/                   # Project documentation
 │   ├── architecture/
 │   ├── api/
 │   ├── workflow/
 │   └── deployment/
 │
-├── tests/
+├── tests/                  # Global test suite
 │   ├── unit/
 │   ├── integration/
 │   ├── e2e/
 │   └── performance/
 │
-├── scripts/
+├── scripts/                # Utility scripts
 │   ├── setup_local.sh
 │   ├── seed_data.py
 │   ├── run_tests.sh
 │   └── migrate_db.sh
 │
-├── infra/
+├── infra/                  # Deployment & DevOps
 │   ├── docker/
 │   ├── k8s/
 │   └── ci-cd/
 │
-├── data/
+├── data/                   # Sample & mock data
 │   ├── sample/
 │   ├── fixtures/
 │   └── mock/
