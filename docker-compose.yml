@@ -1,6 +1,32 @@
 version: "3.9"
 
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: healthcare_a2a
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d healthcare_a2a"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   api-gateway:
     build:
       context: .
@@ -11,6 +37,14 @@ services:
     environment:
       SERVICE_NAME: api-gateway
       ORCHESTRATOR_URL: http://orchestrator:8001
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/healthcare_a2a
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: change-me-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - ./:/app
 
@@ -50,6 +84,10 @@ services:
       - "8003:8003"
     environment:
       SERVICE_NAME: scheduling-agent
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/healthcare_a2a
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - ./:/app
 
@@ -62,6 +100,13 @@ services:
       - "8004:8004"
     environment:
       SERVICE_NAME: data-agent
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/healthcare_a2a
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - ./:/app
 
@@ -78,3 +123,6 @@ services:
       - ./apps/web-dashboard:/app/apps/web-dashboard
       - /app/apps/web-dashboard/node_modules
     working_dir: /app/apps/web-dashboard
+
+volumes:
+  postgres_data:

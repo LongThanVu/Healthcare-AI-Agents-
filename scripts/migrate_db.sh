@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-echo "No database migrations configured yet."
+set -euo pipefail
+
+python -m scripts.seed_data

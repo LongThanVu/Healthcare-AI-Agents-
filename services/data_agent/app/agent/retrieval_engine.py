@@ -4,13 +4,13 @@ from shared.schemas.records import PatientRecord
 
 
 class RetrievalEngine:
-    def __init__(self) -> None:
-        self.repository = PatientRepository()
+    def __init__(self, repository: PatientRepository) -> None:
+        self.repository = repository
 
-    def search(self, query: str) -> list[PatientRecord]:
+    async def search(self, query: str) -> list[PatientRecord]:
         normalized = QueryPlanner.normalize(query)
         results: list[PatientRecord] = []
-        for patient in self.repository.find_all():
+        for patient in await self.repository.find_all():
             blob = " ".join(
                 [
                     patient.patient_id,
